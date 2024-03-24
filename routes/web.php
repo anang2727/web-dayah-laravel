@@ -57,27 +57,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/santri/{santri}', [SantriController::class, 'destroy'])->name('santri.destroy');
     Route::get('/admin/santri/{id}', [SantriController::class, 'show'])->name('santri.show');
 
-    Route::get('/admin/users',[UserController::class, 'index'])->name('users.dashboard');
+    // Halaman Users 
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.dashboard');
+    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/admin/users/{id}', [UserController::class, 'show'])->name('users.show');
 });
 
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
-    // Admin Dashboard
-    Route::get('guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
-
-
-    // Halaman Santri 
-    Route::get('/guru/santri', [SantriController::class, 'index'])->name('santri.dashboard');
-    Route::post('/guru/santri', [SantriController::class, 'store'])->name('santri.store');
-    Route::get('/guru/santri/{santri}/edit', [SantriController::class, 'edit'])->name('santri.edit');
-    Route::put('/guru/santri/{santri}', [SantriController::class, 'update'])->name('santri.update');
-    Route::delete('/guru/santri/{santri}', [SantriController::class, 'destroy'])->name('santri.destroy');
-    Route::get('/guru/santri/{id}', [SantriController::class, 'show'])->name('santri.show');
-
 });
 
 Route::middleware(['auth', 'role:santri'])->group(function () {
-    // Halaman Santri 
-    Route::get('/guru/santri', [SantriController::class, 'index'])->name('santri.dashboard');
-
 });

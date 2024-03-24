@@ -1,0 +1,30 @@
+
+Daftar Route untuk Admin, Guru, dan Santri
+Berikut adalah daftar route yang bisa diakses oleh admin, guru, dan santri:
+
+Admin:
+
+Guru:
+    CRUD (Create, Read, Update, Delete) data guru
+Santri:
+    //CRUD data santri
+    //Pengaturan:
+    //Mengubah profil admin
+    //Mengelola role dan permission
+    //Mengatur konfigurasi sistem
+Guru:
+
+Santri:
+Menampilkan daftar santri
+Menampilkan detail santri
+Menambahkan nilai santri
+Mengirim pesan kepada santri
+Santri:
+
+Profil:
+Menampilkan profil diri
+Mengubah profil diri
+Kelas:
+Menampilkan daftar kelas
+Menampilkan materi kelas
+Mengikuti ujian

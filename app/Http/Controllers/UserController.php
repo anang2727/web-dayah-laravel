@@ -2,120 +2,103 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar pengguna.
      */
     public function index()
     {
-        //
-        $items = User::all();
-
-        return view('users.dashboard', [
-            'users' => $items
-        ]);
+        $users = User::all(); // Contoh kueri untuk mengambil semua data guru
+        return view('users.dashboard', ['users' => $users]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menyimpan data pengguna baru.
      */
+
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari form
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'show_password' => 'required|string|min:8',
             'role' => 'required|string|in:admin,guru,santri',
         ]);
 
-        // Membuat data pengguna baru
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'show_password' => $request->show_password,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+        return redirect()->back()->with('success', 'Data User berhasil disimpan.');
 
-        // Menyimpan data pengguna ke dalam database
-        $user->save();
-
-        // Mengembalikan respons atau mengarahkan ke halaman yang sesuai
-        return redirect()->back()->with('success', 'Data pengguna berhasil disimpan.');
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        //  return redirect()->route('users.dashboard')->with('success', 'Data pengguna berhasil disimpan.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan data pengguna tertentu.
      */
-    public function edit(string $id)
+    public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Menampilkan form untuk mengedit data pengguna.
      */
-    public function update(Request $request, $id)
+    public function edit(User $user)
     {
-        // Validasi data yang diterima dari form
+        return view('users.edit', compact('user'));
+    }
+
+    /**
+     * Memperbarui data pengguna.
+     */
+    public function update(Request $request, User $user)
+    {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
             'role' => 'required|string|in:admin,guru,santri',
         ]);
-
-        // Temukan pengguna berdasarkan ID
-        $user = User::findOrFail($id);
-
-        // Perbarui data pengguna
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        // Periksa apakah password baru disertakan dalam permintaan
+    
+        // Periksa apakah ada perubahan pada password
         if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
+            $password = Hash::make($request->password);
+        } else {
+            // Jika tidak ada perubahan, gunakan password yang sudah ada tanpa meng-hash lagi
+            $password = $user->password;
         }
-
-        $user->role = $request->role;
-
-        // Simpan perubahan
-        $user->save();
-
-        // Mengembalikan respons atau mengarahkan ke halaman yang sesuai
+    
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'role' => $request->role,
+            'show_password' => $request->password,
+        ]);
+        
+    
         return redirect()->back()->with('success', 'Data pengguna berhasil diperbarui.');
     }
-
+    
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data pengguna.
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // Temukan pengguna berdasarkan ID
-        $user = User::findOrFail($id);
-    
-        // Hapus pengguna dari database
         $user->delete();
-    
-        // Redirect kembali dengan pesan sukses atau response JSON sesuai kebutuhan
         return redirect()->back()->with('success', 'Data pengguna berhasil dihapus.');
     }
-    
 }

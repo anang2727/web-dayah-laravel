@@ -120,7 +120,7 @@
     <aside id="sidebar" class="sidebar ">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -179,7 +179,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Home</a>
+                        <a href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
