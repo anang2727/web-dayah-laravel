@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\GuruPanel;
 
+use App\Exports\GuruExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Guru;
-
+use App\Exports\SantriExport;
+use Carbon\Carbon;
 class GuruController extends Controller
 {
     public function index()
@@ -84,5 +86,10 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail($id);
         return view('guru.show', compact('guru'));
+    }
+
+    public function export()
+    {
+        return (new GuruExport)->download('guru-'. Carbon::now()->format('Ymd') .'.xlsx');
     }
 }

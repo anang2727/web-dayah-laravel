@@ -48,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/guru/{guru}', [GuruController::class, 'update'])->name('guru.update');
     Route::delete('/admin/guru/{guru}', [GuruController::class, 'destroy'])->name('guru.destroy');
     Route::get('/admin/guru/{id}', [GuruController::class, 'show'])->name('guru.show');
+    Route::get('/admin/guru-export', [GuruController::class, 'export'])->name('guru.export');
+
 
     // Halaman Santri 
     Route::get('/admin/santri', [SantriController::class, 'index'])->name('santri.dashboard');

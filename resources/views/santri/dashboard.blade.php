@@ -4,12 +4,18 @@
 <div class="row">
     <div class="col-12">
         <div class="card mb-4">
-            <div class="col-2 m-2">
-                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addItem"> <i class="bx bxs-plus-circle"></i>Tambah Data</button>
-            </div>
-            <div class="col-2 m-2">
-                <a href="{{ route('santri.export') }}" class="btn btn-warning btn-sm">
-                    <i class="bx bxs-plus-circle"></i> Simpan Excel
+            <div class="m-3">
+                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addItem"> <i class="bx bxs-plus-circle"></i>Tambah Data</button>
+                <a href="{{ route('santri.export') }}" class="btn btn-success btn-sm">
+                    <i class="ri-file-excel-2-line"></i>
+                    <span>Excel</span>
+                </a>
+                <a href="{{ route('santri.export') }}" class="btn btn-success btn-sm">
+                    <i class="ri-file-excel-2-line"></i>
+                    <span>Import Excel</span>
+                </a>
+                <a data-bs-toggle="modal" data-bs-target="#verticalycentered" href="" class="btn btn-info btn-sm">
+                    <i class="bi bi-file-earmark-word fw-bold "></i> Word
                 </a>
             </div>
             @if ($errors->any())
@@ -26,28 +32,28 @@
                 <div class="card-body">
                     <h5 class="card-title">Tabel Santri</h5>
                     <!-- Small tables -->
-                    <table class="table">
+                    <table class="table ">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Foto</th>
-                                <th>Nama</th>
-                                <th>NIK</th>
-                                <th>Alamat</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Foto</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">NIK</th>
+                                <th class="text-center">Alamat</th>
                                 <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody class="">
                             @foreach ($santris as $item)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>
+                                <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                                <td class="text-center">
                                     <img src="{{ url('storage/' . $item->image) }}" class="card-img-top" style="width: 45px;">
                                 </td>
                                 <td>{{ $item->nama_santri }}</td>
                                 <td>{{ $item->nik }}</td>
                                 <td>{{ $item->alamat }}</td>
-                                <td class="d-flex gap-2">
+                                <td class="d-flex gap-2 mx-auto">
                                     <a href="{{ route('santri.edit', $item->id) }}" class="btn btn-warning"><i class="bx bxs-pencil"></i> </a>
                                     <form class="" action="{{ route('santri.destroy', $item->id) }}" method="POST">
                                         @csrf
@@ -134,6 +140,27 @@
         </div>
     </div>
 </div>
+
+<!-- Vertically centered Modal -->
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eksport atau Import Excel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+            </div>
+            <div class="modal-footer">
+                <div class="btn-small btn btn-secondary" data-bs-dismiss="modal">Tutup</div>
+                <div class="btn-small btn btn-primary">Selesai</div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Vertically centered Modal-->
+
 
 <script>
     function previewImage(input) {

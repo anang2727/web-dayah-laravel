@@ -7,6 +7,10 @@
             <div class="col-2 m-2">
                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addItem"> <i class="bx bxs-plus-circle"></i>Tambah Data</button>
             </div>
+            <a href="{{ route('guru.export') }}" class="btn btn-success btn-sm">
+                <i class="ri-file-excel-2-line"></i>
+                <span>Import Excel</span>
+            </a>
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
