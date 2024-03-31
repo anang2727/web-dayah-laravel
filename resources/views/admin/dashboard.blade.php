@@ -1,17 +1,12 @@
 @extends('layouts.homeD')
 
 @section('admin')
-<div>
-    <h4>Hello {{ Auth::user()->name }} </h4>
-    <h2 class="fw-bold text-center my-3 ">Sistem Informasi Dayah</h2>
-    <h1 class="fw-bold text-center my-3 ">An Nabawi Paya Malem</h1>
-</div>
+
 <div class="row">
 
     <!-- Left side columns -->
     <div class="col-lg-12">
         <div class="row">
-
             <!-- Sales Card -->
             <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
@@ -38,14 +33,15 @@
                             </div>
                             <div class="ps-3">
                                 <h6>Data Guru</h6>
-                                <span class="text-success small pt-1 fw-bold">00</span> <span class="text-muted small pt-2 ps-1">Orang</span>
+                                <span class="text-success small pt-1 fw-bold">{{ $totalGuru }}</span> <span class="text-muted small pt-2 ps-1">Orang</span>
 
                             </div>
                         </div>
                     </div>
 
                 </div>
-            </div><!-- End Sales Card -->
+            </div>
+            <!--  -->
 
             <div class="col-xxl-4 col-md-6">
                 <div class="card info-card revenue-card">
@@ -71,14 +67,16 @@
                             </div>
                             <div class="ps-3">
                                 <h6>Data Santri</h6>
-                                <span class="text-success small pt-1 fw-bold">00</span> <span class="text-muted small pt-2 ps-1">Orang</span>
-
+                                <span class="text-success small pt-1 fw-bold">{{ $totalSantri }}</span>
+                                <span class="text-muted small pt-2 ps-1">Orang</span>
                             </div>
+
                         </div>
                     </div>
 
                 </div>
-            </div><!-- End Revenue Card -->
+            </div>
+            <!--  -->
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Exports\SantriExport;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\AdminPanel\AdminController;
 use App\Http\Controllers\GuruPanel\GuruController;
 use App\Http\Controllers\ProfileController;
@@ -18,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TemplateController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -56,6 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/santri/{santri}', [SantriController::class, 'update'])->name('santri.update');
     Route::delete('/admin/santri/{santri}', [SantriController::class, 'destroy'])->name('santri.destroy');
     Route::get('/admin/santri/{id}', [SantriController::class, 'show'])->name('santri.show');
+    Route::get('/admin/santri-export', [SantriController::class, 'export'])->name('santri.export');
 
     // Halaman Users 
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.dashboard');

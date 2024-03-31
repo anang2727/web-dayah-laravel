@@ -10,8 +10,11 @@ class GuruController extends Controller
 {
     public function index()
     {
-        $gurus = Guru::all(); // Contoh kueri untuk mengambil semua data guru
-        return view('guru.dashboard', ['gurus' => $gurus]);
+        $items = Guru::all();
+
+        return view('guru.dashboard', [
+            'gurus' => $items
+        ]);
     }
 
     public function store(Request $request)
@@ -80,7 +83,6 @@ class GuruController extends Controller
     public function show($id)
     {
         $guru = Guru::findOrFail($id);
-
         return view('guru.show', compact('guru'));
     }
 }

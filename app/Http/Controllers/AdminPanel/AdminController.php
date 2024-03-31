@@ -14,8 +14,10 @@ class AdminController extends Controller
         $gurus = Guru::all();
         $santris = Santri::all();
         $users = User::all();
-
-        return view('admin.dashboard', compact('gurus', 'santris', 'users'));
-    }
+        $totalSantri = Santri::count(); // Menghitung jumlah total santri
+        $totalGuru = Guru::count(); // Menghitung jumlah total guru
     
+        return view('admin.dashboard', compact('gurus', 'santris', 'users', 'totalSantri', 'totalGuru'));
+    }
 }
+

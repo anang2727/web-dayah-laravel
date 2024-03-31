@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_santri');
+            $table->string('nik')->nullable();
+            $table->string('no_kk')->nullable();
+            $table->string('alamat')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('nama_ayah')->nullable();
+            $table->string('nama_ibu')->nullable();
+            $table->date('tgl_masuk')->nullable();
+            $table->text('image');
             $table->timestamps();
         });
     }

@@ -7,6 +7,11 @@
             <div class="col-2 m-2">
                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addItem"> <i class="bx bxs-plus-circle"></i>Tambah Data</button>
             </div>
+            <div class="col-2 m-2">
+                <a href="{{ route('santri.export') }}" class="btn btn-warning btn-sm">
+                    <i class="bx bxs-plus-circle"></i> Simpan Excel
+                </a>
+            </div>
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -16,6 +21,7 @@
                 </ul>
             </div>
             @endif
+
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Tabel Santri</h5>
@@ -28,7 +34,6 @@
                                 <th>Nama</th>
                                 <th>NIK</th>
                                 <th>Alamat</th>
-                                <th>Tgl Lahir</th>
                                 <th class="text-center"></th>
                             </tr>
                         </thead>
@@ -37,12 +42,11 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>
-                                    <img src="{{ url('storage/' . $item->image) }}" class="card-img-top" style="width: 80px;">
+                                    <img src="{{ url('storage/' . $item->image) }}" class="card-img-top" style="width: 45px;">
                                 </td>
                                 <td>{{ $item->nama_santri }}</td>
                                 <td>{{ $item->nik }}</td>
                                 <td>{{ $item->alamat }}</td>
-                                <td>{{ $item->tgl_lahir }}</td>
                                 <td class="d-flex gap-2">
                                     <a href="{{ route('santri.edit', $item->id) }}" class="btn btn-warning"><i class="bx bxs-pencil"></i> </a>
                                     <form class="" action="{{ route('santri.destroy', $item->id) }}" method="POST">
@@ -74,50 +78,52 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">guru Baru</h5>
+                <h5 class="modal-title">Santri Baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                <form action="{{ route('guru.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('santri.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="image">Gambar</label>
-                        <input required type="file" name="image" id="image" class="form-control">
-                        <img id="imagePreview" src="#" alt="Preview Gambar" style="max-width: 200px; display: block;">
+                        <input required type="file" name="image" accept="image/*" id="image" class="form-control">
+                        <img id="imagePreview" src="#" alt="Preview Gambar" style="max-width: 150px; display: block;">
                     </div>
                     <div class="mb-3">
-                        <label for="nama_guru">Nama guru</label>
-                        <input required type="text" name="nama_guru" id="nama_guru" class="form-control">
+                        <label for="nama_santri">Nama Santri</label>
+                        <input required type="text" name="nama_santri" id="nama_santri" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="no_ktp">No Ktp</label>
-                        <input required type="text" name="no_ktp" id="no_ktp" class="form-control">
+                        <label for="nik">Nik</label>
+                        <input type="text" name="nik" id="nik" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="no_kk">No KK</label>
-                        <input required type="text" name="no_kk" id="no_kk" class="form-control">
+                        <input type="text" name="no_kk" id="no_kk" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="alamat">Alamat</label>
-                        <input required type="text" name="alamat" id="alamat" class="form-control">
+                        <input type="text" name="alamat" id="alamat" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="tgl_lahir">Tgl Lahir</label>
-                        <input required type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
+                        <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="pekerjaan">Pekerjaan</label>
-                        <input required type="text" name="pekerjaan" id="pekerjaan" class="form-control">
+                        <label for="nama_ayah">Nama Ayah</label>
+                        <input type="text" name="nama_ayah" id="nama_ayah" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
-                        <input required type="text" name="pendidikan_terakhir" id="pendidikan_terakhir" class="form-control">
+                        <label for="nama_ibu">Nama Ibu</label>
+                        <input type="text" name="nama_ibu" id="nama_ibu" class="form-control">
                     </div>
-
-
+                    <div class="mb-3">
+                        <label for="tgl_masuk">Tgl Masuk</label>
+                        <input type="date" name="tgl_masuk" id="tgl_masuk" class="form-control">
+                    </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save changes</button>

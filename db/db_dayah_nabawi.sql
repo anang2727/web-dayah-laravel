@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2024 at 11:15 AM
+-- Generation Time: Mar 26, 2024 at 06:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,22 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_dayah_nabawi`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -61,7 +45,7 @@ CREATE TABLE `gurus` (
 --
 
 INSERT INTO `gurus` (`id`, `nama_guru`, `no_ktp`, `alamat`, `tgl_lahir`, `pekerjaan`, `pendidikan_terakhir`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'aaaa', 2423, 'sdfsdf', '2024-03-20', 'dfsdfsd', 'fsdfsd', '', NULL, NULL);
+(1, 'Muksalmina', 342343, 'Geulanggang Labu', '2024-03-06', 'tani', 'SMA', 'guru/EAFqco9rHx2LM69ftnUTu7Sk5wafvCW5VLuUEaQm.png', '2024-03-25 18:00:32', '2024-03-25 18:05:28');
 
 -- --------------------------------------------------------
 
@@ -81,24 +65,9 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2024_03_10_105107_create_guru_models_table', 1),
-(6, '2024_03_10_123804_create_gurus_table', 2),
-(7, '2024_03_10_132824_create_santris_table', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_reset_tokens`
---
-
-CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(2, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(3, '2024_03_10_123804_create_gurus_table', 1),
+(4, '2024_03_10_132824_create_santris_table', 1);
 
 -- --------------------------------------------------------
 
@@ -127,9 +96,26 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `santris` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_santri` varchar(255) NOT NULL,
+  `nik` varchar(255) DEFAULT NULL,
+  `no_kk` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `nama_ayah` varchar(255) DEFAULT NULL,
+  `nama_ibu` varchar(255) DEFAULT NULL,
+  `tgl_masuk` date DEFAULT NULL,
+  `image` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `santris`
+--
+
+INSERT INTO `santris` (`id`, `nama_santri`, `nik`, `no_kk`, `alamat`, `tgl_lahir`, `nama_ayah`, `nama_ibu`, `tgl_masuk`, `image`, `created_at`, `updated_at`) VALUES
+(6, 'Anang Kurniawan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'santri/E7WFZVNN1kjEgKd3Q7gJ2UDKSQqJGqOUFUnxzSDC.jpg', '2024-03-25 21:24:00', '2024-03-25 21:24:00'),
+(7, 'Ulul Azmi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'santri/gzEBnzA7iCCb3yFhiz881vUpcejKiKJO1ax4HC3S.png', '2024-03-25 21:24:58', '2024-03-25 21:24:58');
 
 -- --------------------------------------------------------
 
@@ -143,6 +129,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `show_password` varchar(255) NOT NULL,
   `role` enum('admin','guru','santri') NOT NULL DEFAULT 'santri',
   `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `remember_token` varchar(100) DEFAULT NULL,
@@ -154,22 +141,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'anang', 'anangkurniawan2727@gmail.com', NULL, '$2y$12$9XzqvU6O3THCiQJu1QDI4O8GfdsMhOHrF67a0dLVUwJpsY7Ip4Gr6', 'santri', 'active', NULL, '2024-03-10 02:54:59', '2024-03-10 02:54:59'),
-(2, 'admin', 'admin@gmail.com', NULL, '$2y$12$rP1s5axMEgvi6NeIhy3iy.eMxarcbJDlj2pwZg9cC7a5xSY5ZmZI6', 'admin', 'active', NULL, NULL, NULL),
-(3, 'guru', 'guru@gmail.com', NULL, '$2y$12$moQ3KTfZjow33rDHeWzIMOSg8GPWN6KKbUab837DhONBTA12jHFAm', 'guru', 'active', NULL, NULL, NULL),
-(4, 'santri', 'santri@gmail.com', NULL, '$2y$12$w3hUHeCtbyevhg82UMmdHOCo1q47NdlQ44qL7Iia1jUkqq0R6IO0G', 'santri', 'active', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `show_password`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$12$xh5aJwqDIPPUGHn5vO7KMuix83t/r8zISE0lc0YZ5hWdZ8qI32Mf.', 'admin123', 'admin', 'inactive', NULL, NULL, NULL),
+(2, 'guru', 'guru@gmail.com', NULL, '$2y$12$hRK2uHflIurpQoluvF7zoOOIMc0cPrR1mB.YIFjWK9DiIMQv7DQ0.', 'guru123', 'guru', 'inactive', NULL, NULL, NULL),
+(3, 'santri', 'santri@gmail.com', NULL, '$2y$12$1FYh7FBQlAxExYRgsRB3NuRiKv478twEJow28NMg47WXPekuTQmGi', 'santri123', 'santri', 'inactive', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
 -- Indexes for table `gurus`
@@ -182,12 +161,6 @@ ALTER TABLE `gurus`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `password_reset_tokens`
---
-ALTER TABLE `password_reset_tokens`
-  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -215,12 +188,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `gurus`
 --
 ALTER TABLE `gurus`
@@ -230,7 +197,7 @@ ALTER TABLE `gurus`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -242,13 +209,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `santris`
 --
 ALTER TABLE `santris`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

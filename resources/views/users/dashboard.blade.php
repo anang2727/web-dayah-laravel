@@ -1,6 +1,7 @@
 @extends('layouts.homeD')
 
 @section('users')
+<!-- ============================ -->
 <div class="row">
     <div class="col-12">
         <div class="card mb-4">
@@ -38,7 +39,11 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->show_password }}</td>
-                                <td>{{ $item->role }}</td>
+                                <td>
+                                    <span style="background-color: {{ $item->backgroundColor }}; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">
+                                        {{ $item->role }}
+                                    </span>
+                                </td>
                                 <td class="d-flex gap-2">
                                     <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning"><i class="bx bxs-pencil"></i> </a>
                                     <form class="" action="{{ route('users.destroy', $item->id) }}" method="POST">
@@ -46,7 +51,6 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="bx bxs-trash-alt"></i></button>
                                     </form>
-                                    <a href="{{ route('users.show', $item->id) }}" class="btn btn-info"><i class="bx bxs-detail"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -60,11 +64,6 @@
         </div>
     </div>
 </div>
-
-
-
-<!--  -->
-
 
 <div id="addItem" class="modal" tabindex="-1">
     <div class="modal-dialog">
@@ -112,6 +111,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var password = document.getElementById("password");

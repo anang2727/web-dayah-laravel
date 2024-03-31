@@ -26,10 +26,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Foto</th>
+                                <th>Foto</th>
                                 <th>Nama</th>
                                 <th>No Ktp</th>
                                 <th>Alamat</th>
-                                <th>Tgl Lahir</th>
                                 <th class="text-center"></th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>
-                                    <img src="{{ url('storage/' . $item->image) }}" class="card-img-top" style="width: 80px;">
+                                    <img src="{{ url('storage/' . $item->image) }}" class="card-img-top" style="width: 40px;">
                                 </td>
                                 <td>{{ $item->nama_guru }}</td>
                                 <td>{{ $item->no_ktp }}</td>
@@ -85,9 +85,8 @@
                 <form action="{{ route('guru.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="image">Gambar</label>
-                        <input required type="file" name="image" id="image" class="form-control">
-                        <img id="imagePreview" src="#" alt="Preview Gambar" style="max-width: 200px; display: block;">
+                        <img id="imagePreview" src="#" style="max-width: 200px; display: block;">
+                        <input required type="file" name="image" id="image" class="form-control" placeholder="Image">
                     </div>
                     <div class="mb-3">
                         <label for="nama_guru">Nama guru</label>
@@ -117,11 +116,8 @@
                         <label for="pendidikan_terakhir">Pendidikan Terakhir</label>
                         <input required type="text" name="pendidikan_terakhir" id="pendidikan_terakhir" class="form-control">
                     </div>
-
-
-
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </form>
             </div>

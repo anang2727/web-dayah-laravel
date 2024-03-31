@@ -15,6 +15,22 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all(); // Contoh kueri untuk mengambil semua data guru
+        foreach ($users as $user) {
+            switch ($user->role) {
+                case 'admin':
+                    $user->backgroundColor = 'red';
+                    break;
+                case 'guru':
+                    $user->backgroundColor = '#24baee';
+                    break;
+                case 'santri':
+                    $user->backgroundColor = 'green';
+                    break;
+                default:
+                    $user->backgroundColor = 'black'; // Warna default jika peran tidak dikenali
+                    break;
+            }
+        }
         return view('users.dashboard', ['users' => $users]);
     }
 
@@ -71,7 +87,7 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8',
             'role' => 'required|string|in:admin,guru,santri',
         ]);
-    
+
         // Periksa apakah ada perubahan pada password
         if ($request->filled('password')) {
             $password = Hash::make($request->password);
@@ -79,7 +95,7 @@ class UserController extends Controller
             // Jika tidak ada perubahan, gunakan password yang sudah ada tanpa meng-hash lagi
             $password = $user->password;
         }
-    
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -87,11 +103,11 @@ class UserController extends Controller
             'role' => $request->role,
             'show_password' => $request->password,
         ]);
-        
-    
+
+
         return redirect()->back()->with('success', 'Data pengguna berhasil diperbarui.');
     }
-    
+
 
     /**
      * Menghapus data pengguna.
